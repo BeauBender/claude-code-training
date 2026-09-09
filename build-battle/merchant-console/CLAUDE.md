@@ -11,6 +11,8 @@ npm install
 npm run dev
 ```
 
+Set `GITHUB_TOKEN` to enable the right-click feedback dialog — see `docs/feedback-loop.md` at the repo root.
+
 No database, no seed step, no Docker.
 
 ## Data lives in memory
@@ -55,6 +57,7 @@ These four explain most of the code, and breaking them is how bugs get in here.
 | `src/app/api/` | Route handlers |
 | `src/data/` | Seed JSON, the in-memory store, and types |
 | `src/components/` | Tremor-based primitives and the console's own components |
+| `src/components/ui/feedback/` | Right-click feedback dialog; files a `UserRequest` issue via `POST /api/feedback` |
 | `src/lib/` | Money, date, and CSV helpers, each with a `.test.ts` beside it. Read these before touching an amount |
 
 ## Before you push

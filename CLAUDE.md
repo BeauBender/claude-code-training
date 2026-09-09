@@ -17,6 +17,7 @@ Read the narrowest one that applies before you write code.
 
 - `docs/tickets/` — the tickets engineers work, written as they arrive on a sprint board
 - `docs/specs/` — where plans go before code does, and the template they follow
+- `docs/feedback-loop.md` — how right-click feedback becomes a GitHub issue and how the pull agent works it
 - `docs/ORG-STANDARDS.md` — the org-wide engineering standards every service is measured against
 - `.claude/` — the skills (`/spec`, `/pr`, `/ship-ready`) and the `bug-investigator` subagent. Open Claude Code at this root and they are available everywhere
 - `build-battle/` — the exercise brief and the scoring rubric
