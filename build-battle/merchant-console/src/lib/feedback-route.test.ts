@@ -11,9 +11,14 @@ import { handleFeedback, type FeedbackDeps } from "./feedback-route"
 
 const VALID_PAYLOAD = { text: "Export button is broken", page: "/payments" }
 
+/** Builds a fake `NodeJS.ProcessEnv` from just the vars a test cares about. */
+function env(vars: Record<string, string>): NodeJS.ProcessEnv {
+  return vars as unknown as NodeJS.ProcessEnv
+}
+
 function makeDeps(overrides: Partial<FeedbackDeps> = {}): FeedbackDeps {
   return {
-    env: { GITHUB_TOKEN: "t" },
+    env: env({ GITHUB_TOKEN: "t" }),
     create: vi.fn().mockResolvedValue({
       number: 12,
       id: "REQ12",
@@ -27,7 +32,7 @@ function makeDeps(overrides: Partial<FeedbackDeps> = {}): FeedbackDeps {
 
 describe("handleFeedback", () => {
   it("validates before checking config: bad payload + no GITHUB_TOKEN -> 400", async () => {
-    const deps = makeDeps({ env: {} })
+    const deps = makeDeps({ env: env({}) })
 
     const result = await handleFeedback({ text: "" }, deps)
 
@@ -36,7 +41,7 @@ describe("handleFeedback", () => {
   })
 
   it("valid payload + no GITHUB_TOKEN -> 503, create not called", async () => {
-    const deps = makeDeps({ env: {} })
+    const deps = makeDeps({ env: env({}) })
 
     const result = await handleFeedback(VALID_PAYLOAD, deps)
 
@@ -60,7 +65,7 @@ describe("handleFeedback", () => {
   })
 
   it("valid payload -> calls create once with config + built issue, returns 201 with the CreatedIssue verbatim", async () => {
-    const deps = makeDeps({ env: { GITHUB_TOKEN: "t", FEEDBACK_REPO: "o/r" } })
+    const deps = makeDeps({ env: env({ GITHUB_TOKEN: "t", FEEDBACK_REPO: "o/r" }) })
 
     const result = await handleFeedback(VALID_PAYLOAD, deps)
 
