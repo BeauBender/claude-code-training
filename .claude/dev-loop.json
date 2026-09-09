@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "cardPrefixes": ["CHAT", "FIX"],
+  "kanban": {
+    "source": "issues",
+    "repo": "BeauBender/claude-code-training"
+  },
+  "gate": {
+    "test": "cd build-battle/merchant-console && npm test && npm run lint"
+  },
+  "swarm": {
+    "maxAgents": 3,
+    "overlapExempt": []
+  }
+}
