@@ -1,12 +1,17 @@
 {
   "enabled": true,
-  "cardPrefixes": ["CHAT", "FIX", "FEAT", "REQ"],
+  "cardPrefixes": [
+    "CHAT",
+    "FIX",
+    "FEAT",
+    "REQ"
+  ],
   "kanban": {
     "source": "issues",
     "repo": "BeauBender/claude-code-training"
   },
   "gate": {
-    "test": "cd build-battle/merchant-console && npm test && npm run lint"
+    "test": "cd build-battle/merchant-console && ([ -d node_modules ] || npm install --no-audit --no-fund) && npm test && npm run lint"
   },
   "swarm": {
     "maxAgents": 3,
