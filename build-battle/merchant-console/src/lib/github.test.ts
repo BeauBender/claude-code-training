@@ -9,6 +9,11 @@ import { createUserRequestIssue, GitHubError, readGitHubConfig } from "./github"
  * and payload shape down, and to make sure the token never leaks.
  */
 
+/** Builds a fake `NodeJS.ProcessEnv` from just the vars a test cares about. */
+function env(vars: Record<string, string>): NodeJS.ProcessEnv {
+  return vars as unknown as NodeJS.ProcessEnv
+}
+
 function jsonResponse(status: number, body: unknown): Response {
   return new Response(JSON.stringify(body), {
     status,
@@ -18,15 +23,15 @@ function jsonResponse(status: number, body: unknown): Response {
 
 describe("readGitHubConfig", () => {
   it("returns null when GITHUB_TOKEN is unset", () => {
-    expect(readGitHubConfig({})).toBeNull()
+    expect(readGitHubConfig(env({}))).toBeNull()
   })
 
   it("returns null when GITHUB_TOKEN is empty", () => {
-    expect(readGitHubConfig({ GITHUB_TOKEN: "" })).toBeNull()
+    expect(readGitHubConfig(env({ GITHUB_TOKEN: "" }))).toBeNull()
   })
 
   it("defaults repo to BeauBender/claude-code-training", () => {
-    expect(readGitHubConfig({ GITHUB_TOKEN: "t" })).toEqual({
+    expect(readGitHubConfig(env({ GITHUB_TOKEN: "t" }))).toEqual({
       token: "t",
       repo: "BeauBender/claude-code-training",
     })
@@ -34,7 +39,7 @@ describe("readGitHubConfig", () => {
 
   it("honours FEEDBACK_REPO as an override", () => {
     expect(
-      readGitHubConfig({ GITHUB_TOKEN: "t", FEEDBACK_REPO: "o/r" }),
+      readGitHubConfig(env({ GITHUB_TOKEN: "t", FEEDBACK_REPO: "o/r" })),
     ).toEqual({
       token: "t",
       repo: "o/r",
