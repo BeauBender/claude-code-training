@@ -1,4 +1,5 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/Sidebar"
+import { FeedbackTrigger } from "@/components/ui/feedback/FeedbackTrigger"
 import { AppSidebar } from "@/components/ui/navigation/AppSidebar"
 import { Breadcrumbs } from "@/components/ui/navigation/Breadcrumbs"
 import type { Metadata } from "next"
@@ -68,6 +69,7 @@ export default async function RootLayout({
           disableTransitionOnChange
           attribute="class"
         >
+          <FeedbackTrigger />
           <SidebarProvider defaultOpen={defaultOpen}>
             <AppSidebar />
             <div className="w-full">
