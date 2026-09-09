@@ -11,7 +11,7 @@
     "repo": "BeauBender/claude-code-training"
   },
   "gate": {
-    "test": "cd build-battle/merchant-console && ([ -d node_modules ] || npm install --no-audit --no-fund) && npm test && npm run lint"
+    "test": "cd build-battle/merchant-console && ([ -d node_modules ] || npm ci --no-audit --no-fund) && npm test && npm run lint"
   },
   "swarm": {
     "maxAgents": 3,
