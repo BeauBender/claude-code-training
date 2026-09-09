@@ -1,0 +1,2 @@
+{"ts":"2026-09-09T23:28:19Z","card":"FEAT1","impl_model":"sonnet","tier":"standard","catch_type":"clean-accept","severity":"none","rounds":0,"description":"GitHub issue client + tests; first-pass accept","root_cause":"n-a","would_have_prevented":"n-a"}
+{"ts":"2026-09-09T23:29:39Z","card":"FEAT2","impl_model":"sonnet","tier":"standard","catch_type":"clean-accept","severity":"none","rounds":0,"description":"feedback validation + issue body builder; first-pass accept","root_cause":"n-a","would_have_prevented":"n-a"}
