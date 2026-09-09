@@ -1,6 +1,6 @@
 {
   "enabled": true,
-  "cardPrefixes": ["CHAT", "FIX"],
+  "cardPrefixes": ["CHAT", "FIX", "FEAT", "REQ"],
   "kanban": {
     "source": "issues",
     "repo": "BeauBender/claude-code-training"
