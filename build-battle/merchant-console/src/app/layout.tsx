@@ -1,4 +1,7 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/Sidebar"
+import { ChatPanel } from "@/components/ui/chat/ChatPanel"
+import { ChatProvider } from "@/components/ui/chat/ChatProvider"
+import { ChatTrigger } from "@/components/ui/chat/ChatTrigger"
 import { FeedbackTrigger } from "@/components/ui/feedback/FeedbackTrigger"
 import { AppSidebar } from "@/components/ui/navigation/AppSidebar"
 import { Breadcrumbs } from "@/components/ui/navigation/Breadcrumbs"
@@ -58,6 +61,7 @@ export default async function RootLayout({
 }) {
   const cookieStore = await cookies()
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true"
+  const chatDefaultOpen = cookieStore.get("chat:state")?.value === "true"
 
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
@@ -72,16 +76,24 @@ export default async function RootLayout({
           <FeedbackTrigger />
           <SidebarProvider defaultOpen={defaultOpen}>
             <AppSidebar />
-            <div className="w-full">
-              <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b border-gray-200 bg-white px-4 dark:border-gray-800 dark:bg-gray-950">
-                <SidebarTrigger className="-ml-1" />
-                <div className="mr-2 h-4 w-px bg-gray-200 dark:bg-gray-800" />
-                <Breadcrumbs />
-              </header>
-              <main className="min-h-[calc(100vh-4rem)] bg-white dark:bg-gray-925">
-                {children}
-              </main>
-            </div>
+            <ChatProvider defaultOpen={chatDefaultOpen}>
+              <div className="flex w-full">
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b border-gray-200 bg-white px-4 dark:border-gray-800 dark:bg-gray-950">
+                    <SidebarTrigger className="-ml-1" />
+                    <div className="mr-2 h-4 w-px bg-gray-200 dark:bg-gray-800" />
+                    <Breadcrumbs />
+                    <div className="ml-auto flex items-center">
+                      <ChatTrigger />
+                    </div>
+                  </header>
+                  <main className="min-h-[calc(100vh-4rem)] bg-white dark:bg-gray-925">
+                    {children}
+                  </main>
+                </div>
+                <ChatPanel />
+              </div>
+            </ChatProvider>
           </SidebarProvider>
         </ThemeProvider>
       </body>
